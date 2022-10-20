@@ -1,6 +1,6 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "name": "emitter-remix-socket",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/emitter-remix-socket/src",
   "projectType": "library",
   "tags": [],
@@ -46,6 +46,12 @@
       "options": {
         "jestConfig": "libs/emitter-remix-socket/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional"
       }
     }
   }
