@@ -1,7 +1,15 @@
-# core
+# @remix-sse/core
 
-This library was generated with [Nx](https://nx.dev).
+This is the core library for implementing SSE and WebSocket routes.
 
-## Running unit tests
+# Classes
 
-Run `nx test core` to execute the unit tests via [Jest](https://jestjs.io).
+## `EventStream`
+
+Extending the web fetch `Response`, you can return this from your resource route `loader` instead of a `Response` to initiate an EventStream.
+
+# Hooks
+
+## `useEventSource`
+
+Use this hook to subscribe your UI to the `EventStream` you have returned from a resource route.

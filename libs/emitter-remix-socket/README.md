@@ -1,7 +1,9 @@
-# emitter-remix-socket
+# @remix-sse/emitter-remix-socket
 
-This library was generated with [Nx](https://nx.dev).
+A bare-bones `WebSocket` wrapper. Although it has `remix` in its name, it actually has no dependencies on any `remix` package.
 
-## Running unit tests
+> Note: this may be deprecated in future in order keep the library focused on remix idioims.
 
-Run `nx test emitter-remix-socket` to execute the unit tests via [Jest](https://jestjs.io).
+# Example
+
+[remix-socket-example](/examples/remix-socket-example/)
