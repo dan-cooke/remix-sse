@@ -16,7 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@remix-sse/core": ["libs/core/src/index.ts"],
-      "@remix-sse/util": ["libs/util/src/index.ts"]
+      "@remix-sse/emitter-remix-socket": [
+        "libs/emitter-remix-socket/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

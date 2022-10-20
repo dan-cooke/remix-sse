@@ -1,10 +1,10 @@
 /* eslint-disable */
 export default {
-  displayName: 'util',
+  displayName: 'emitter-remix-socket',
   preset: '../../jest.preset.js',
   transform: {
     '^.+\\.[tj]sx?$': 'babel-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/util',
+  coverageDirectory: '../../coverage/libs/emitter-remix-socket',
 };

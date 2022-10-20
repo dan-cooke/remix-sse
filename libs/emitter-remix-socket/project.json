@@ -1,7 +1,7 @@
 {
-  "name": "core",
+  "name": "emitter-remix-socket",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/core/src",
+  "sourceRoot": "libs/emitter-remix-socket/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -9,16 +9,16 @@
       "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "libs/core/dist",
-        "tsConfig": "libs/core/tsconfig.lib.json",
-        "project": "libs/core/package.json",
-        "entryFile": "libs/core/src/index.ts",
+        "outputPath": "libs/emitter-remix-socket/dist",
+        "tsConfig": "libs/emitter-remix-socket/tsconfig.lib.json",
+        "project": "libs/emitter-remix-socket/package.json",
+        "entryFile": "libs/emitter-remix-socket/src/index.ts",
         "external": ["react/jsx-runtime"],
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "compiler": "babel",
         "assets": [
           {
-            "glob": "libs/core/README.md",
+            "glob": "libs/emitter-remix-socket/README.md",
             "input": ".",
             "output": "."
           }
@@ -30,21 +30,21 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/core/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["libs/emitter-remix-socket/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "publish": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "libs/core",
+        "cwd": "libs/emitter-remix-socket",
         "command": "npm publish ./dist --access public"
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/core"],
+      "outputs": ["coverage/libs/emitter-remix-socket"],
       "options": {
-        "jestConfig": "libs/core/jest.config.ts",
+        "jestConfig": "libs/emitter-remix-socket/jest.config.ts",
         "passWithNoTests": true
       }
     },
