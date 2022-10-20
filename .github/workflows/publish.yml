@@ -19,8 +19,6 @@ jobs:
 
       - name: NRWL Set Shas
         uses: nrwl/nx-set-shas@v2
-        with:
-          main-branch-name: develop
 
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
