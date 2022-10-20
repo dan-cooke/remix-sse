@@ -1,4 +1,6 @@
 # `remix-sse`
+[![Publish](https://github.com/baggers-org/remix-sse/actions/workflows/publish.yml/badge.svg?branch=main&event=push)](https://github.com/baggers-org/remix-sse/actions/workflows/publish.yml)
+[![CI Pipeline](https://github.com/baggers-org/remix-sse/actions/workflows/ci.yml/badge.svg)](https://github.com/baggers-org/remix-sse/actions/workflows/ci.yml)
 
 Server Side Events (SSE) and WebSockets made easy with Remix.
 
@@ -7,6 +9,11 @@ Server Side Events (SSE) and WebSockets made easy with Remix.
 This monorepo contains several packages for working with SSE and Websockets.
 
 - [@remix-sse/core](/libs/core/) - The base set of functionality, contains the most atomic building blocks for SSE/WebSockets
+
+## Emitters
+Emitters are pre-built `EventEmitter` classes that allow you to easily connect to various event sources.
+
+- [@remix-sse/emitter-remix-socket](/libs/emitter-remix-socket/) - A barebones WebSocket implementation for use with remix-sse.
 
 ## Examples
 
