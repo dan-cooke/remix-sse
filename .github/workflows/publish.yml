@@ -1,0 +1,39 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  publish:
+    name: ⬣ Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: NRWL Set Shas
+        uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: develop
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.0
+
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
+
+      - name: Build libs
+        run: nx affected --target=build
+
+      - name: Publish
+        run: nx affected --target=publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

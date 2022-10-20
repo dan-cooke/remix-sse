@@ -47,7 +47,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "libs/core",
-        "command": "npm publish --access public"
+        "command": "npm publish ./dist --access public"
       }
     },
     "test": {

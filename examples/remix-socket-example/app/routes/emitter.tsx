@@ -1,6 +1,6 @@
 import { LoaderFunction } from '@remix-run/node';
 import { EventStream } from '@remix-sse/core';
-import { RemixSocket } from '@remix-sse/util';
+import { RemixSocket } from '@remix-sse/emitter-remix-socket';
 
 export const EVENT_NAME = 'message';
 export const loader: LoaderFunction = ({ request }) => {
@@ -13,7 +13,7 @@ export const loader: LoaderFunction = ({ request }) => {
       // Open a connection with the postman echo util
       // This service does not send data, only echoes back what clients send.
       address: 'wss://ws.postman-echo.com/raw',
-      onOpen: (s) => {
+      onOpen: () => {
         // Because no data is sent by default - we will start sending messages to
         // "simulate" events as soon as the connection is established.
         let i = 0;
@@ -24,7 +24,7 @@ export const loader: LoaderFunction = ({ request }) => {
       // The handle message function is required for RemixSocket
       // Its purpose is to generate an "Event" that the EventEmitter
       // listener can pick up.
-      handleMessage: (raw) => {
+      handleMessage: (raw: any) => {
         return {
           // I am calling this event message, but you could parse the event from the raw data here instead
           eventName: EVENT_NAME,
@@ -34,7 +34,7 @@ export const loader: LoaderFunction = ({ request }) => {
     });
 
     // Listen for this event coming through
-    socket.on(EVENT_NAME, (message) => {
+    socket.on(EVENT_NAME, (message: any) => {
       // You could also circumvent this method, and just send directly from `handleMessage`
       send(EVENT_NAME, message);
     });

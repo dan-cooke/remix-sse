@@ -1,7 +1,7 @@
 {
   "name": "@remix-sse/core",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "main": "./dist/index.cjs.js",
-  "typings": "./dist/index.d.ts",
+  "typings": "./index.d.ts",
   "private": false
 }
