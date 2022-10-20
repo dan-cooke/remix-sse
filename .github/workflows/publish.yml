@@ -33,11 +33,11 @@ jobs:
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
 
-      - name: Build libs
-        run: npx nx affected --target=build
-
       - name: Version
         run: npx nx affected --target=version
+
+      - name: Build libs
+        run: npx nx affected --target=build
 
       - name: Publish
         run: npx nx affected --target=publish
