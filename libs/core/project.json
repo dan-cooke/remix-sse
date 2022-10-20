@@ -7,17 +7,13 @@
   "targets": {
     "build": {
       "executor": "@nrwl/web:rollup",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "libs/core/dist",
         "tsConfig": "libs/core/tsconfig.lib.json",
         "project": "libs/core/package.json",
         "entryFile": "libs/core/src/index.ts",
-        "external": [
-          "react/jsx-runtime"
-        ],
+        "external": ["react/jsx-runtime"],
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "compiler": "babel",
         "assets": [
@@ -27,20 +23,14 @@
             "output": "."
           }
         ],
-        "format": [
-          "cjs"
-        ]
+        "format": ["cjs"]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/core/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["libs/core/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "publish": {
@@ -52,12 +42,16 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/core"
-      ],
+      "outputs": ["coverage/libs/core"],
       "options": {
         "jestConfig": "libs/core/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional"
       }
     }
   }
