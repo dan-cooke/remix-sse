@@ -11,18 +11,17 @@
     "prepare": "husky install"
   },
   "private": true,
-  "dependencies": {
-    "@nrwl/remix": "14.7.0",
+  "peerDependencies": {
     "@remix-run/node": "^1.6.8",
     "@remix-run/react": "^1.6.8",
     "@remix-run/serve": "^1.6.8",
-    "core-js": "^3.6.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "regenerator-runtime": "0.13.7",
-    "tslib": "^2.3.0"
+    "react": "*",
+    "react-dom": "*",
+    "regenerator-runtime": "*",
+    "tslib": "^2.0.0"
   },
   "devDependencies": {
+    "@nrwl/remix": "14.7.0",
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
     "@jscutlery/semver": "^2.27.1",
@@ -62,5 +61,8 @@
   },
   "workspaces": [
     "libs/*"
-  ]
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
 }

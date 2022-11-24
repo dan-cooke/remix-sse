@@ -34,7 +34,7 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: Version
-        run: npx nx affected --target=version
+        run: npx nx affected --target=version --parallel=0
 
       - name: Build libs
         run: npx nx affected --target=build
