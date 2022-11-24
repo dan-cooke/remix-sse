@@ -17,9 +17,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: NRWL Set Shas
-        uses: nrwl/nx-set-shas@v2
-
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
@@ -33,13 +30,10 @@ jobs:
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
 
-      - name: Version
-        run: npx nx affected --target=version --parallel=0
-
       - name: Build libs
-        run: npx nx affected --target=build
+        run: npm run build
 
       - name: Publish
-        run: npx nx affected --target=publish
+        run: npx semantic-release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

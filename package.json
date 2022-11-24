@@ -1,16 +1,20 @@
 {
   "name": "remix-sse",
-  "version": "0.1.0",
-  "license": "MIT",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
-    "start": "nx serve",
-    "build": "nx build",
-    "test": "nx test",
-    "postinstall": "remix setup node",
-    "version": "nx affected --target=version",
-    "prepare": "husky install"
+    "build": "tsc",
+    "dev": "tsc -w",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "test": "echo \"todo\""
   },
-  "private": true,
+  "author": "",
+  "license": "ISC",
   "peerDependencies": {
     "@remix-run/node": "^1.6.8",
     "@remix-run/react": "^1.6.8",
@@ -21,17 +25,8 @@
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@nrwl/remix": "14.7.0",
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
-    "@jscutlery/semver": "^2.27.1",
-    "@nrwl/cli": "15.0.0",
-    "@nrwl/eslint-plugin-nx": "14.8.6",
-    "@nrwl/jest": "14.8.6",
-    "@nrwl/linter": "14.8.6",
-    "@nrwl/react": "14.8.6",
-    "@nrwl/web": "14.8.6",
-    "@nrwl/workspace": "15.0.0",
     "@remix-run/dev": "^1.6.8",
     "@remix-run/eslint-config": "^1.6.8",
     "@testing-library/react": "13.4.0",
@@ -39,30 +34,32 @@
     "@types/node": "16.11.7",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.36.1",
-    "@typescript-eslint/parser": "^5.36.1",
+    "@types/ws": "^8.5.3",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
     "babel-jest": "28.1.1",
-    "eslint": "^8.20.0",
+    "eslint": "^8.28.0",
     "eslint-config-prettier": "8.1.0",
-    "eslint-plugin-import": "2.26.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "6.6.1",
-    "eslint-plugin-react": "7.31.8",
+    "eslint-plugin-n": "^15.5.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "4.6.0",
     "husky": "^8.0.0",
     "jest": "28.1.1",
     "jest-environment-jsdom": "28.1.1",
-    "nx": "15.0.0",
     "prettier": "^2.6.2",
     "react-test-renderer": "18.2.0",
+    "semantic-release": "^19.0.5",
     "socket.io-client": "^4.5.3",
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
-    "typescript": "~4.8.2"
+    "typescript": "~4.8.2",
+    "ws": "^7.5.9"
   },
-  "workspaces": [
-    "libs/*"
-  ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+  "dependencies": {
+    "semver": "^7.3.8"
   }
 }
