@@ -16,9 +16,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: NRWL Set Shas
-        uses: nrwl/nx-set-shas@v2
-
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
@@ -28,9 +25,9 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: 🔬 Lint
-        run: npx nx affected --target=lint --parallel=3
+        run: npm run lint
 
-  typecheck:
+  typescript:
     name: ʦ TypeScript
     runs-on: ubuntu-latest
     steps:
@@ -42,9 +39,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: NRWL Set Shas
-        uses: nrwl/nx-set-shas@v2
-
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
@@ -54,7 +48,7 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: 🔎 Type check
-        run: npx nx affected --target=type-check --parallel=3
+        run: npm run build
 
   test:
     name: ⚡ Test
@@ -68,9 +62,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: NRWL Set Shas
-        uses: nrwl/nx-set-shas@v2
-
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
@@ -80,4 +71,4 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: ⚡ Run tests
-        run: npx nx affected --target=test --parallel=3 --coverage
+        run: npm run test
