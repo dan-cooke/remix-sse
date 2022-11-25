@@ -1,25 +1,22 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "rootDir": ".",
+    "rootDir": "src",
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
-    "module": "esnext",
+    "module": "CommonJS",
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "@remix-sse/core": ["libs/core/src/index.ts"],
-      "@remix-sse/emitter-remix-socket": [
-        "libs/emitter-remix-socket/src/index.ts"
-      ]
-    }
+    "jsx": "react-jsx",
+    "outDir": "dist"
   },
-  "exclude": ["node_modules", "tmp"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "tmp", "examples"]
 }

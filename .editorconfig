@@ -3,6 +3,7 @@ root = true
 
 [*]
 charset = utf-8
+quote_type = single
 indent_style = space
 indent_size = 2
 insert_final_newline = true
