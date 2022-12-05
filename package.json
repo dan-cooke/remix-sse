@@ -2,13 +2,11 @@
   "name": "remix-sse",
   "version": "1.0.1",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist/"
-  ],
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc",
+    "postbuild": "cp package.json dist",
     "dev": "tsc -w",
     "lint": "eslint src/**/*.{ts,tsx}",
     "test": "echo \"todo\""

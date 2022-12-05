@@ -44,7 +44,7 @@ export const loader: LoaderFunction = ({ request }) => {
 2. Call the `useEventSource` hook in the browser to start receiving events.
 
 ````.ts
-import { useEventSource } from 'remix-sse'
+import { useEventSource } from 'remix-sse/client'
 
 const data = useEventSource('/emitter');
 
