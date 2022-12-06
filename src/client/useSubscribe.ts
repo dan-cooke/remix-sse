@@ -4,6 +4,7 @@ import { useRemixSseContext } from './RemixSseProvider';
 
 export type UseSubscribeOptions<TKey extends string, TEvent> = {
   maxEventRetention?: number;
+  returnLatestOnly?: boolean;
   deserialize?: Partial<Record<TKey, (serialized: string) => TEvent>>;
 };
 export function useSubscribe<TKey extends string, TEvent>(
@@ -13,7 +14,7 @@ export function useSubscribe<TKey extends string, TEvent>(
     maxEventRetention: 50,
   }
 ) {
-  const { maxEventRetention, deserialize } = options;
+  const { maxEventRetention, deserialize, returnLatestOnly } = options;
   const [data, setData] = useState<Record<TKey, TEvent[]>>({
     ...events.reduce(
       (acc, curr) => ({ ...acc, [curr]: [] }),
@@ -56,7 +57,12 @@ export function useSubscribe<TKey extends string, TEvent>(
     };
   }, [url, events, maxEventRetention, eventSources]);
 
-  console.log(data);
+  if (returnLatestOnly) {
+    return Object.entries(data).reduce(
+      (acc, [key, value]) => ({ [key]: value.pop() }),
+      {}
+    );
+  }
 
   return data;
 }
