@@ -26,11 +26,6 @@ jobs:
         with:
           node-version: 16.13.0
 
-      - name: Setup Git
-        run: |
-          git config user.name "GitHub Bot"
-          git config user.email "gituser@baggers.app"
-
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
 
