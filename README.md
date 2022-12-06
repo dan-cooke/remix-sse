@@ -2,15 +2,28 @@
 
 Server Side Events (SSE) and WebSockets for Remix, made easy.
 
+## Features
+
+- ✅ Zero-dependencies
+- ✅ Small bundle
+- ✅ Context for re-using event source connections across remix application
+- ✅ (experimental) Typed deserialization
+
 # Installation
 
 ```
 npm i remix-sse
 ```
 
+# Documentation
+
+See [examples](/examples/) directory.
+
 # Usage
 
-1. Setup your emitter route, here it is called `/routes/emitter.tsx` for simplicity
+See [basic example](/examples/basic/README.md) for more detail.
+
+1. Setup your event source route, here it is called `/routes/emitter.tsx` for simplicity
 
 > Note: This **MUST** be a resource route, you cannot return a component from this route.
 
@@ -41,14 +54,23 @@ export const loader: LoaderFunction = ({ request }) => {
 ```
 
 > Note: the first argument passed to the `send` function is the `EventKey`, this can be
-> anything you want - but you will need to reference it again via `useEventSource`.
+> anything you want - but you will need to reference it again via `useSse`.
 
-2. Call the `useEventSource` hook in the browser to start receiving events.
+2. Wrap your `root.tsx` with `RemixSseProvider`.
+
+```.ts
+
+        <RemixSseProvider>
+          <Outlet />
+        </RemixSseProvider>
+```
+
+2. Call the `useSse` hook in the browser to start receiving events.
 
 ````.ts
-import { useEventSource } from 'remix-sse/client'
+import { useSse } from 'remix-sse/client'
 
-const { greeting } = useEventSource('/emitter', ['greeting']);
+const { greeting } = useSse('/emitter', ['greeting']);
 
 // This is a react state value, and will update everytime an event is received
 console.log(greeting)
@@ -69,3 +91,5 @@ These are currently being tested, and are subject to change at any point.
 | Option        | Description                                                                                                                                                              | Default   |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- |
 | `deserialize` | A key value object where the key is the name of the event you want to de-serialize, and the value is a `DeserializeFn`. See [deserialize example](/examples/deserialize) | undefined |
+
+.

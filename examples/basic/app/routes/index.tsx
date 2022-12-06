@@ -1,9 +1,6 @@
-import { useEventSource } from '../../../../src/client';
+import { useSse } from '../../../../src/client';
 export default function Index() {
-  const { greeting, question } = useEventSource('/basic', [
-    'greeting',
-    'question',
-  ]);
+  const { greeting, question } = useSse('/basic', ['greeting', 'question']);
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
