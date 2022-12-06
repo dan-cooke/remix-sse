@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "types": "index.d.ts",
+  "repository": {
+    "url": "https://github.com/baggers-org/remix-sse"
+  },
   "scripts": {
     "build": "tsc",
-    "postbuild": "cp package.json dist",
+    "postbuild": "cp package.json README.md dist",
     "dev": "tsc -w",
     "lint": "eslint src/**/*.{ts,tsx}",
     "test": "echo \"todo\""
@@ -63,5 +66,9 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
-  }
+  },
+  "workspaces": [
+    "examples/**/*",
+    "."
+  ]
 }
