@@ -11,13 +11,13 @@ export default function Index() {
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
       <h1>Welcome to Remix-SSE</h1>
 
-      <h2>Hello Events:</h2>
+      <h2>Greetings:</h2>
       {greeting}
 
-      <h2>Question Events</h2>
+      <h2>Questions:</h2>
       {question}
 
-      <h2>Most Recent Question:</h2>
+      <h2>Most Recent Greeting:</h2>
       {mostRecentGreeting}
     </div>
   );

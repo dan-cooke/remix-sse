@@ -2,18 +2,37 @@ import { useEffect, useState } from 'react';
 import { addNewEvent } from './addNewEvent';
 import { useRemixSseContext } from './RemixSseProvider';
 
-export type UseSubscribeOptions<TKey extends string, TEvent> = {
+export type UseSubscribeOptions<
+  TKey extends string,
+  TEvent extends string | any,
+  TReturnLatest extends boolean
+> = {
   maxEventRetention?: number;
-  returnLatestOnly?: boolean;
+  returnLatestOnly?: TReturnLatest;
   deserialize?: Partial<Record<TKey, (serialized: string) => TEvent>>;
 };
-export function useSubscribe<TKey extends string, TEvent>(
+
+export type LatestOrAllEvents<
+  TKey extends string,
+  TEvent extends string | any,
+  TReturnLatest extends boolean | undefined
+> = [TReturnLatest] extends [true]
+  ? Record<TKey, TEvent>
+  : Record<TKey, TEvent[]>;
+
+export function useSubscribe<
+  TKey extends string,
+  TEvent extends string | any,
+  TReturnLatest extends boolean
+>(
   url: string,
   events: TKey[],
-  options: UseSubscribeOptions<TKey, TEvent> = {
+  options: UseSubscribeOptions<TKey, TEvent, TReturnLatest> = {
     maxEventRetention: 50,
   }
-) {
+): [TReturnLatest] extends [true]
+  ? Record<TKey, TEvent>
+  : Record<TKey, TEvent[]> {
   const { maxEventRetention, deserialize, returnLatestOnly } = options;
   const [data, setData] = useState<Record<TKey, TEvent[]>>({
     ...events.reduce(
@@ -59,10 +78,10 @@ export function useSubscribe<TKey extends string, TEvent>(
 
   if (returnLatestOnly) {
     return Object.entries(data).reduce(
-      (acc, [key, value]) => ({ [key]: value.pop() }),
-      {}
+      (acc, [key, value]) => ({ ...acc, [key]: (value as TEvent[]).pop() }),
+      {} as any
     );
   }
 
-  return data;
+  return data as any;
 }

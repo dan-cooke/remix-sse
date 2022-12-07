@@ -18,5 +18,6 @@ module.exports = {
     semi: 'off',
     'space-before-function-paren': 'off',
     'comma-dangle': 'off',
+    'no-redeclare': 'off',
   },
 };

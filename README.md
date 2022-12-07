@@ -19,7 +19,7 @@ npm i remix-sse
 
 See [examples](/examples/) directory.
 
-# Usage
+# Quick Start
 
 See [basic example](/examples/basic/README.md) for more detail.
 
@@ -60,12 +60,15 @@ export const loader: LoaderFunction = ({ request }) => {
 
 ```.ts
 
-        <RemixSseProvider>
-          <Outlet />
-        </RemixSseProvider>
+import { RemixSseProvider} from 'remix-sse/client'
+
+
+<RemixSseProvider>
+  <Outlet />
+</RemixSseProvider>
 ```
 
-2. Call the `useSse` hook in the browser to start receiving events.
+3. Call the `useSse` hook in the browser to start receiving events.
 
 ````.ts
 import { useSse } from 'remix-sse/client'
@@ -78,11 +81,32 @@ console.log(greeting)
 ```
 ````
 
+# Re-using `EventSource`
+
+Its possible to re-use an `EventSource` connection across your component hierarchy.
+
+Simply call `useEventSource` to setup the connection in a parent component.
+
+To start listening to events from the source, call `useSubscribe` from anywhere in the tree with the same URL.
+
+See [shared-event-source](/examples/shared-event-source/) for more details
+
+# Deserialize
+
+By default the `data` returned from `useSse` and `useSubscribe` is a `string[]`
+
+You can deserialize each element in this array however you want.
+
+> Note: this feature is experimental and is subject to change.
+
+See [deserialize](/examples/deserialize/) for more details.
+
 ## Options
 
 | Option              | Description                                                                                      | Default |
 | ------------------- | ------------------------------------------------------------------------------------------------ | ------- |
 | `maxEventRetention` | The maximum number of events that will be kept under each event key in the returned state object | 50      |
+| `returnLatestOnly`  | Returns only the most recently emitted event for each event type                                 | `false` |
 
 ## Experimental options
 

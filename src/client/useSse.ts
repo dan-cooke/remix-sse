@@ -1,10 +1,11 @@
 import { useEventSource } from './useEventSource';
 import { useSubscribe, UseSubscribeOptions } from './useSubscribe';
 
-export type UseSseOptions<TKey extends string, TEvent> = UseSubscribeOptions<
-  TKey,
-  TEvent
->;
+export type UseSseOptions<
+  TKey extends string,
+  TEvent,
+  TLatestOnly extends boolean
+> = UseSubscribeOptions<TKey, TEvent, TLatestOnly>;
 /**
  * This hook is to be used in the Browser.
  * It will subscribe to your chosen event source
@@ -20,13 +21,17 @@ export type UseSseOptions<TKey extends string, TEvent> = UseSubscribeOptions<
  * useSse('/some-resource', ['someKey'])
  * @returns
  */
-export function useSse<TKey extends string, TEvent>(
+export function useSse<
+  TKey extends string,
+  TEvent,
+  TLatestOnly extends boolean
+>(
   url: string,
   events?: TKey[],
-  options: UseSseOptions<TKey, TEvent> = {
+  options: UseSseOptions<TKey, TEvent, TLatestOnly> = {
     maxEventRetention: 50,
   }
-): Record<TKey, TEvent[]> {
+) {
   useEventSource(url);
   return useSubscribe(url, events, options);
 }
