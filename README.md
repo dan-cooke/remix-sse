@@ -7,11 +7,18 @@ Server Side Events (SSE) and WebSockets for Remix, made easy.
 - ✅ Zero-dependencies
 - ✅ Small bundle
 - ✅ Context for re-using event source connections across remix application
+- ✅ supports multiple event types from a single emitter
+- ✅ 100% typescript
 - ✅ (experimental) Typed deserialization
+
+### Planned
+
+- 👷 Topic support - pass a topic string to `useSubscribe` and only listen to events that match the topic
+- 👷 Emitter type support - ensures the messages you are sending are in a format your hooks are expecting
 
 # Installation
 
-```
+```bash
 npm i remix-sse
 ```
 
@@ -54,7 +61,7 @@ export const loader: LoaderFunction = ({ request }) => {
 ```
 
 > Note: the first argument passed to the `send` function is the `EventKey`, this can be
-> anything you want - but you will need to reference it again via `useSse`.
+> anything you want - but you will need to reference it again via `useSubscribe`.
 
 2. Wrap your `root.tsx` with `RemixSseProvider`.
 
@@ -68,52 +75,59 @@ import { RemixSseProvider} from 'remix-sse/client'
 </RemixSseProvider>
 ```
 
-3. Call the `useSse` hook in the browser to start receiving events.
+3. Call the `useEventSource` to setup an `EventSource` in your browser
 
-````.ts
-import { useSse } from 'remix-sse/client'
-
-const { greeting } = useSse('/emitter', ['greeting']);
-
-// This is a react state value, and will update everytime an event is received
-console.log(greeting)
+```.ts
+import { useEventSource } from 'remix-sse/client'
+useEventSource('/emitter');
 
 ```
-````
 
-# Re-using `EventSource`
+4. Call `useSubscribe` from anywhere in your tree to begin listening to events emitted from the event source
 
-Its possible to re-use an `EventSource` connection across your component hierarchy.
+```.ts
+// This value is a react state object, and will change everytime
+// an event is emitted
 
-Simply call `useEventSource` to setup the connection in a parent component.
+// By default this is a string[]
+const greeting = useSubscribe('/emitter', 'greeting')
 
-To start listening to events from the source, call `useSubscribe` from anywhere in the tree with the same URL.
+// But you can return only the latest event as follows
+const latestGreeting = useSubscribe('/emitter', 'greeting', {
+  returnLatestOnly: true
+})
 
-See [shared-event-source](/examples/shared-event-source/) for more details
+// Or you can type the return by deserializing the event data
+const typedGreeting = useSubscribe('/emitter', 'greeting', {
+  returnLatestOnly: true,
+  deserialize: (raw) => JSON.parse(raw) as Greeting
+})
+
+```
 
 # Deserialize
 
-By default the `data` returned from `useSse` and `useSubscribe` is a `string[]`
+By default the `data` returned from `useSubscribe` is a `string[]`
 
-You can deserialize each element in this array however you want.
+You can pass a `deserialize` function to de-deserialize each event as it comes in.
 
 > Note: this feature is experimental and is subject to change.
 
 See [deserialize](/examples/deserialize/) for more details.
 
-## Options
+## `useSubscribe` options
 
-| Option              | Description                                                                                      | Default |
-| ------------------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `maxEventRetention` | The maximum number of events that will be kept under each event key in the returned state object | 50      |
-| `returnLatestOnly`  | Returns only the most recently emitted event for each event type                                 | `false` |
+| Option              | Description                                                                               | Default |
+| ------------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `maxEventRetention` | The maximum number of events that will be kept.                                           | 50      |
+| `returnLatestOnly`  | Returns only the most recently emitted event - ie. returns `TEvent` instead of `TEvent[]` | `false` |
 
 ## Experimental options
 
 These are currently being tested, and are subject to change at any point.
 
-| Option        | Description                                                                                                                                                              | Default   |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- |
-| `deserialize` | A key value object where the key is the name of the event you want to de-serialize, and the value is a `DeserializeFn`. See [deserialize example](/examples/deserialize) | undefined |
+| Option        | Description                                                                                                                        | Default   |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `deserialize` | A function that will receive the raw event data and returns a deserialized value. See [deserialize example](/examples/deserialize) | undefined |
 
 .

@@ -19,5 +19,6 @@ module.exports = {
     'space-before-function-paren': 'off',
     'comma-dangle': 'off',
     'no-redeclare': 'off',
+    indent: 'off',
   },
 };

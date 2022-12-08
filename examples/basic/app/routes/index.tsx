@@ -1,9 +1,12 @@
-import { useSse } from '../../../../src/client';
+import { useEventSource, useSubscribe } from '../../../../src/client';
 export default function Index() {
-  const { greeting, question } = useSse('/basic', ['greeting', 'question']);
+  // This can be called from anywhere in your react tree- even a parent component
+  useEventSource('/basic');
 
-  // You can pass returnLatestOnly if you don't care about retaining events
-  const { greeting: mostRecentGreeting } = useSse('/basic', ['greeting'], {
+  const greetings = useSubscribe('/basic', 'greeting');
+  const questions = useSubscribe('/basic', 'question');
+
+  const mostRecentGreeting = useSubscribe('/basic', 'greeting', {
     returnLatestOnly: true,
   });
 
@@ -12,13 +15,13 @@ export default function Index() {
       <h1>Welcome to Remix-SSE</h1>
 
       <h2>Greetings:</h2>
-      {greeting}
+      {JSON.stringify(greetings)}
 
       <h2>Questions:</h2>
-      {question}
+      {JSON.stringify(questions)}
 
       <h2>Most Recent Greeting:</h2>
-      {mostRecentGreeting}
+      {JSON.stringify(mostRecentGreeting)}
     </div>
   );
 }

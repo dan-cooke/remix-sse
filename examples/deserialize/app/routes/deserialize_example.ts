@@ -6,12 +6,21 @@ export const loader: LoaderFunction = ({ request }) => {
     let gIndex = 0;
     let g = setInterval(() => {
       gIndex += 1;
-      send('greeting', JSON.stringify({ hello: 'world', index: gIndex }));
+      send('assetValue', (Math.random() * gIndex * 1000).toString());
     }, 1000);
 
     let q = setInterval(() => {
-      send('question', JSON.stringify({ question: 'what is your name?' }));
-    }, 5000);
+      send(
+        'holdingsArray',
+        JSON.stringify([
+          { stock: 'AAPL', latestPrice: Math.random() * 100 },
+          {
+            stock: 'TSLA',
+            latestPrice: Math.random() * 100,
+          },
+        ])
+      );
+    }, 500);
 
     return async () => {
       clearInterval(g);

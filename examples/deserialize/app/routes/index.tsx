@@ -1,20 +1,33 @@
-import { useSse } from '../../../../src/client';
+import { useEventSource, useSubscribe } from '../../../../src/client';
+import { Holding } from './types';
+
+type Greeting = {
+  hello: string;
+  index: number;
+};
+type Question = {
+  question: string;
+};
 export default function Index() {
-  const { greeting, question } = useSse('/basic', ['greeting', 'question'], {
-    deserialize: {
-      greeting: (serialized: string) =>
-        JSON.parse(serialized) as {
-          hello: string;
-          index: number;
-        },
-      question: (serialized: string) =>
-        JSON.parse(serialized) as {
-          question: string;
-        },
-    },
+  // Setup event source
+  useEventSource('/deserialize_example');
+
+  // subscribe to relevant events
+
+  // Deserialize values as you wish
+  // type = number
+  const assetValue = useSubscribe('/deserialize_example', 'assetValue', {
+    deserialize: (raw) => Number(raw),
+    returnLatestOnly: true,
   });
 
-  console.log(greeting, question);
+  // type: Holding[]
+  const holdings = useSubscribe('/deserialize_example', 'holdingsArray', {
+    deserialize: (raw) => JSON.parse(raw) as Holding[],
+    returnLatestOnly: true,
+  });
+
+  console.log(assetValue, holdings);
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
@@ -25,11 +38,11 @@ export default function Index() {
         sent from the route.
       </p>
 
-      <h2>Hello Events:</h2>
-      {JSON.stringify(greeting)}
+      <h2>Asset Value:</h2>
+      {JSON.stringify(assetValue)}
 
-      <h2>Question Events</h2>
-      {JSON.stringify(question)}
+      <h2>Holdings</h2>
+      {JSON.stringify(holdings)}
     </div>
   );
 }

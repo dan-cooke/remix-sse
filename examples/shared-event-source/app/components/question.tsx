@@ -1,11 +1,11 @@
 import { useSubscribe } from '../../../../src/client';
 
 export function Question() {
-  const { question } = useSubscribe('/shared', ['question']);
+  const question = useSubscribe('/shared', 'question');
   return (
     <div>
       <h1>Question:</h1>
-      {question}
+      {JSON.stringify(question)}
     </div>
   );
 }

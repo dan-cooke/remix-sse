@@ -1,47 +1,22 @@
 import { useEffect, useState } from 'react';
 import { addNewEvent } from './addNewEvent';
 import { useRemixSseContext } from './RemixSseProvider';
-
-export type UseSubscribeOptions<
-  TKey extends string,
-  TEvent extends string | any,
-  TReturnLatest extends boolean
-> = {
-  maxEventRetention?: number;
-  returnLatestOnly?: TReturnLatest;
-  deserialize?: Partial<Record<TKey, (serialized: string) => TEvent>>;
-};
-
-export type LatestOrAllEvents<
-  TKey extends string,
-  TEvent extends string | any,
-  TReturnLatest extends boolean | undefined
-> = [TReturnLatest] extends [true]
-  ? Record<TKey, TEvent>
-  : Record<TKey, TEvent[]>;
+import { DeserializeFn, EventOptions, UseSubscribeReturn } from './types';
 
 export function useSubscribe<
-  TKey extends string,
-  TEvent extends string | any,
-  TReturnLatest extends boolean
+  TReturnLatest extends boolean,
+  TDeserialize extends DeserializeFn | undefined
 >(
   url: string,
-  events: TKey[],
-  options: UseSubscribeOptions<TKey, TEvent, TReturnLatest> = {
+  eventKey: string,
+  options: EventOptions<TReturnLatest, TDeserialize> = {
     maxEventRetention: 50,
   }
-): [TReturnLatest] extends [true]
-  ? Record<TKey, TEvent>
-  : Record<TKey, TEvent[]> {
-  const { maxEventRetention, deserialize, returnLatestOnly } = options;
-  const [data, setData] = useState<Record<TKey, TEvent[]>>({
-    ...events.reduce(
-      (acc, curr) => ({ ...acc, [curr]: [] }),
-      {} as Record<TKey, TEvent[]>
-    ),
-  });
-
+): UseSubscribeReturn<TReturnLatest, TDeserialize> {
   const { eventSources } = useRemixSseContext();
+  const { deserialize, maxEventRetention, returnLatestOnly } = options;
+  const [data, setData] =
+    useState<UseSubscribeReturn<TReturnLatest, TDeserialize>>(null);
 
   useEffect(() => {
     const eventSource = eventSources[url];
@@ -49,39 +24,44 @@ export function useSubscribe<
     if (!eventSource) return;
 
     function handler(event: MessageEvent) {
-      setData((previous) => ({
-        ...previous,
-        [event.type]: addNewEvent(
-          options.deserialize?.[event.type]
-            ? deserialize?.[event.type](event.data)
-            : event.data,
-          previous[event.type],
-          maxEventRetention
-        ),
-      }));
+      setData((previous) => {
+        const newEventData = deserialize
+          ? deserialize?.(event.data)
+          : event.data;
+
+        if (returnLatestOnly) {
+          return newEventData;
+        }
+
+        if (Array.isArray(previous)) {
+          return addNewEvent(newEventData, previous, maxEventRetention);
+        }
+
+        if (!previous) {
+          console.log('New event is ', newEventData);
+
+          return addNewEvent(newEventData, [], maxEventRetention);
+        }
+
+        return previous;
+      });
     }
 
-    const removeListeners = () => {
-      events.forEach((e) => {
-        eventSource.removeEventListener(e, handler);
-      });
+    const removeListener = () => {
+      eventSource.removeEventListener(eventKey, handler);
     };
-    removeListeners();
-    events.forEach((e) => {
-      eventSource.addEventListener(e, handler);
-    }, 100);
+
+    const addListener = () => {
+      eventSource.addEventListener(eventKey, handler);
+    };
+
+    removeListener();
+    addListener();
 
     return () => {
-      removeListeners();
+      removeListener();
     };
-  }, [url, events, maxEventRetention, eventSources]);
-
-  if (returnLatestOnly) {
-    return Object.entries(data).reduce(
-      (acc, [key, value]) => ({ ...acc, [key]: (value as TEvent[]).pop() }),
-      {} as any
-    );
-  }
+  }, [url, eventKey, options, eventSources]);
 
   return data as any;
 }
