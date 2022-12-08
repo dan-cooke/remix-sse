@@ -18,7 +18,7 @@ Server Side Events (SSE) and WebSockets for Remix, made easy.
 
 # Installation
 
-```bash
+```sh
 npm i remix-sse
 ```
 
