@@ -1,6 +1,6 @@
 # `remix-sse`
 
-Server Side Events (SSE) and WebSockets for Remix, made easy.
+Server Side Events (SSE) for Remix, made easy.
 
 ## Features
 
