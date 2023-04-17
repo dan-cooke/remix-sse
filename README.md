@@ -2,6 +2,8 @@
 
 Server Side Events (SSE) for Remix, made easy.
 
+<a href="https://www.buymeacoffee.com/devdanc" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
 ## Features
 
 - ✅ Zero-dependencies
