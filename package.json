@@ -1,15 +1,19 @@
 {
   "name": "remix-sse",
-  "version": "1.2.0",
+  "version": "3.0.1",
   "description": "",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "url": "https://github.com/baggers-org/remix-sse"
   },
+  "files": [
+    "dist/**",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
-    "postbuild": "cp package.json README.md dist",
     "dev": "tsc -w",
     "lint": "eslint src/**/*.{ts,tsx}",
     "test": "echo \"todo\""
@@ -17,19 +21,19 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "@remix-run/node": "^1.6.8",
-    "@remix-run/react": "^1.6.8",
-    "@remix-run/serve": "^1.6.8",
+    "@remix-run/node": "^2.x",
+    "@remix-run/react": "^2.x",
+    "@remix-run/serve": "^2.x",
     "react": "*",
     "react-dom": "*",
-    "regenerator-runtime": "*",
-    "tslib": "^2.0.0"
+    "regenerator-runtime": "*"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
-    "@remix-run/dev": "^1.6.8",
-    "@remix-run/eslint-config": "^1.6.8",
+    "@remix-run/dev": "^2.3.0",
+    "@remix-run/eslint-config": "^2.3.0",
+    "@semantic-release/git": "^10.0.1",
     "@semantic-release/npm": "^9.0.1",
     "@testing-library/react": "13.4.0",
     "@types/jest": "28.1.1",
@@ -40,6 +44,7 @@
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
     "babel-jest": "28.1.1",
+    "cypress": "^13.6.0",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-config-standard": "^17.0.0",
@@ -59,7 +64,8 @@
     "socket.io-client": "^4.5.3",
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
-    "typescript": "~4.8.2",
+    "typescript": "^5.1.0",
+    "wait-on": "^7.2.0",
     "ws": "^7.5.9"
   },
   "publishConfig": {

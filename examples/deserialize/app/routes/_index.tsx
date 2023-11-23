@@ -1,13 +1,17 @@
-import { useEventSource, useSubscribe } from '../../../../src/client';
+import type { MetaFunction } from '@remix-run/node';
+import {
+  useEventSource,
+  useSubscribe
+} from 'remix-sse/dist/client/index.js';
 import { Holding } from './types';
 
-type Greeting = {
-  hello: string;
-  index: number;
+export const meta: MetaFunction = () => {
+  return [
+    { title: 'New Remix App' },
+    { name: 'description', content: 'Welcome to Remix!' },
+  ];
 };
-type Question = {
-  question: string;
-};
+
 export default function Index() {
   // Setup event source
   useEventSource('/deserialize_example');

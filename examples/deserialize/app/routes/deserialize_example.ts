@@ -1,6 +1,7 @@
 import { LoaderFunction } from '@remix-run/node';
 
-import { EventStream } from '../../../../src/server';
+import { EventStream } from 'remix-sse';
+
 export const loader: LoaderFunction = ({ request }) => {
   return new EventStream(request, (send) => {
     let gIndex = 0;

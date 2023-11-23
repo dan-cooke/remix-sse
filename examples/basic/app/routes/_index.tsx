@@ -1,4 +1,16 @@
-import { useEventSource, useSubscribe } from '../../../../src/client';
+import type { MetaFunction } from '@remix-run/node';
+import {
+  useEventSource,
+  useSubscribe
+} from 'remix-sse/dist/client/index.js';
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: 'New Remix App' },
+    { name: 'description', content: 'Welcome to Remix!' },
+  ];
+};
+
 export default function Index() {
   // This can be called from anywhere in your react tree- even a parent component
   useEventSource('/basic');

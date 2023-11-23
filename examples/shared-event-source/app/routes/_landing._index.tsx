@@ -1,5 +1,6 @@
-import { Greeting } from '~/components/greeting';
-import { Question } from '~/components/question';
+import { Greeting } from "~/components/greeting";
+import { Question } from "~/components/question";
+
 export default function Index() {
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
