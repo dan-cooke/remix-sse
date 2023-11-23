@@ -1,13 +1,15 @@
 {
-  "name": "basic-v2",
+  "name": "basic",
   "private": true,
   "sideEffects": false,
   "type": "module",
   "scripts": {
     "build": "remix build",
-    "dev": "remix dev --manual",
-    "start": "remix-serve ./build/index.js",
-    "typecheck": "tsc"
+    "dev": "PORT=4000 remix dev --manual",
+    "start": "remix-serve  ./build/index.js",
+    "typecheck": "tsc",
+    "cypress": "npm run dev & wait-on http://localhost:4000; cypress run",
+    "cypress:open": "npm run dev & wait-on http://localhost:4000; cypress open"
   },
   "dependencies": {
     "remix-sse": "*",
