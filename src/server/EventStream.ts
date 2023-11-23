@@ -1,4 +1,3 @@
-import { Headers } from '@remix-run/node';
 import { InitFunction } from './types';
 
 export class EventStream extends Response {
