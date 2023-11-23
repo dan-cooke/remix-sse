@@ -68,7 +68,7 @@ export const loader: LoaderFunction = ({ request }) => {
 
 ```.ts
 
-import { RemixSseProvider} from 'remix-sse/client'
+import { RemixSseProvider} from 'remix-sse/dist/client'
 
 
 <RemixSseProvider>
@@ -76,10 +76,12 @@ import { RemixSseProvider} from 'remix-sse/client'
 </RemixSseProvider>
 ```
 
+> Note: v4 has temporarily broken the flat file structure we used to have ie. `remix-sse/dist/client` instead of `remix-sse/client`
+
 3. Call the `useEventSource` to setup an `EventSource` in your browser
 
 ```.ts
-import { useEventSource } from 'remix-sse/client'
+import { useEventSource } from 'remix-sse/dist/client'
 useEventSource('/emitter');
 
 ```
