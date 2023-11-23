@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
-    "url": "https://github.com/baggers-org/remix-sse"
+    "url": "https://github.com/dan-cooke/remix-sse"
   },
   "files": [
     "dist/**",
@@ -18,8 +18,8 @@
     "lint": "eslint src/**/*.{ts,tsx}",
     "test": "echo \"todo\""
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Daniel Cooke <danielcooke1996@gmail.com>",
+  "license": "See License in LICENSE.md",
   "peerDependencies": {
     "@remix-run/node": "^2.x",
     "@remix-run/react": "^2.x",
