@@ -3,7 +3,7 @@ branches:
 debug: true
 ci: true
 dryRun: false
-pkgRoot: 'dist'
+pkgRoot: '.'
 plugins:
   - '@semantic-release/commit-analyzer'
   - '@semantic-release/release-notes-generator'
