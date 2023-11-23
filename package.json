@@ -2,14 +2,18 @@
   "name": "remix-sse",
   "version": "3.0.1",
   "description": "",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "url": "https://github.com/baggers-org/remix-sse"
   },
+  "files": [
+    "dist/**",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
-    "postbuild": "cp package.json README.md dist",
     "dev": "tsc -w",
     "lint": "eslint src/**/*.{ts,tsx}",
     "test": "echo \"todo\""
@@ -22,7 +26,7 @@
     "@remix-run/serve": "^2.x",
     "react": "*",
     "react-dom": "*",
-    "regenerator-runtime": "*",
+    "regenerator-runtime": "*"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.0",
