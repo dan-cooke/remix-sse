@@ -8,7 +8,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { RemixSseProvider } from "remix-sse/dist/client/index.js";
+import { RemixSseProvider } from "remix-sse/client";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -25,7 +25,7 @@ export default function App() {
       </head>
       <body>
         <RemixSseProvider>
-        <Outlet />
+          <Outlet />
         </RemixSseProvider>
         <ScrollRestoration />
         <Scripts />
