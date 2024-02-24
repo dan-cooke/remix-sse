@@ -38,8 +38,6 @@ export function useSubscribe<
         }
 
         if (!previous) {
-          console.log('New event is ', newEventData);
-
           return addNewEvent(newEventData, [], maxEventRetention);
         }
 
