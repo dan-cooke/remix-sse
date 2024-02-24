@@ -1,6 +1,6 @@
 {
   "name": "remix-sse",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
