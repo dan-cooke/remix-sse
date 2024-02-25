@@ -1,5 +1,5 @@
 export type SendFunctionOptions = {
-  eventKey: string;
+  channel: string;
 }
 export type SendFunction = (data: string, options?: SendFunctionOptions) => void;
 export type CleanupFunction = () => void;

@@ -16,7 +16,7 @@ export default function Index() {
 
   // You could also use the returnLatestOnly option to only return the most recent message
   const mostRecentGreeting = useEventStream('/basic', {
-    eventKey: 'message', // default is 'message'
+    channel: 'message', // default is 'message'
     returnLatestOnly: true,
   });
 

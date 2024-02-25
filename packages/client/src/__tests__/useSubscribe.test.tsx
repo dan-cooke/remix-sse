@@ -6,11 +6,11 @@ describe('useSubscribe', () => {
   describe('when no options are passed', () => {
     it('should return an array of all messages sent to the event source with key "message"', async () => {
       let sendEvent;
-      let eventKey;
+      let channel;
       let eventSources = {
         '/test': {
           addEventListener: vi.fn().mockImplementation((key, fn) => {
-            eventKey = key;
+            channel = key;
             sendEvent = fn;
           }),
           removeEventListener: vi.fn(),
@@ -38,7 +38,7 @@ describe('useSubscribe', () => {
         sendEvent({ data: 'another' })
       })
 
-      expect(eventKey).toEqual('message');
+      expect(channel).toEqual('message');
 
       await waitFor(() => {
         expect(result.current).toEqual(['something', 'another']);
@@ -50,11 +50,11 @@ describe('useSubscribe', () => {
   describe('when returnLatestOnly is true', () => {
     it('should return the latest message sent to the event source', async () => {
       let sendEvent;
-      let eventKey;
+      let channel;
       let eventSources = {
         '/test': {
           addEventListener: vi.fn().mockImplementation((key, fn) => {
-            eventKey = key;
+            channel = key;
             sendEvent = fn;
           }),
           removeEventListener: vi.fn(),
@@ -81,7 +81,7 @@ describe('useSubscribe', () => {
         sendEvent({ data: 'another' })
       })
 
-      expect(eventKey).toEqual('message');
+      expect(channel).toEqual('message');
 
       await waitFor(() => {
         expect(result.current).toEqual('another');

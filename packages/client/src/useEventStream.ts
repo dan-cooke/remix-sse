@@ -25,8 +25,8 @@ export function useEventStream<
   const createdRef = useRef(false);
   const [source, setSource] = useState<EventSource | undefined>(undefined);
   useEffect(() => {
-    if (createdRef.current || sources.get(url)) return;
-    let _source = new EventSource(url);
+    if (createdRef.current) return;
+    let _source = sources.get(url) || new EventSource(url);
     sources.set(url, _source);
     setSource(_source);
     createdRef.current = true;

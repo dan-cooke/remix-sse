@@ -8,12 +8,12 @@ export const loader: LoaderFunction = ({ request }) => {
     let qIndex = 0;
     let g = setInterval(() => {
       gIndex += 1;
-      send(JSON.stringify({ hello: 'world', index: gIndex }), { eventKey: 'greeting' });
+      send(JSON.stringify({ hello: 'world', index: gIndex }), { channel: 'greeting' });
     }, 1000);
 
     let q = setInterval(() => {
       qIndex += 1;
-      send(JSON.stringify({ hello: 'world', index: qIndex }), { eventKey: 'question' });
+      send(JSON.stringify({ hello: 'world', index: qIndex }), { channel: 'question' });
     }, 1000);
 
     return async () => {

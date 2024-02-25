@@ -9,10 +9,10 @@ export function useSubscribe<
   eventSource: EventSource | undefined,
   options: EventOptions<TReturnLatest, TDeserialize> = {
     maxEventRetention: 50,
-    eventKey: 'message',
+    channel: 'message',
   }
 ): UseSubscribeReturn<TReturnLatest, TDeserialize> {
-  const { deserialize, maxEventRetention, returnLatestOnly, eventKey } = options;
+  const { deserialize, maxEventRetention, returnLatestOnly, channel } = options;
   const [data, setData] =
     useState<UseSubscribeReturn<TReturnLatest, TDeserialize>>(null);
 
@@ -43,11 +43,11 @@ export function useSubscribe<
     }
 
     const removeListener = () => {
-      eventSource.removeEventListener(eventKey ?? "message", handler);
+      eventSource.removeEventListener(channel ?? "message", handler);
     };
 
     const addListener = () => {
-      eventSource.addEventListener(eventKey ?? "message", handler);
+      eventSource.addEventListener(channel ?? "message", handler);
     };
 
     removeListener();
@@ -56,7 +56,7 @@ export function useSubscribe<
     return () => {
       removeListener();
     };
-  }, [eventKey, options, deserialize, maxEventRetention, returnLatestOnly, eventSource]);
+  }, [channel, options, deserialize, maxEventRetention, returnLatestOnly, eventSource]);
 
   return data as any;
 }

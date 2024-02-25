@@ -16,14 +16,14 @@ export default function Index() {
   // Deserialize values as you wish
   // type = number
   const assetValue = useEventStream('/deserialize_example', {
-    eventKey: 'assetValue',
+    channel: 'assetValue',
     deserialize: (raw) => Number(raw),
     returnLatestOnly: true,
   });
 
   // type: Holding[]
   const holdings = useEventStream('/deserialize_example', {
-    eventKey: 'holdingsArray',
+    channel: 'holdingsArray',
     deserialize: (raw) => JSON.parse(raw) as Holding[],
     returnLatestOnly: true,
   });
