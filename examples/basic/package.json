@@ -6,10 +6,13 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev --manual",
+    "lint": "eslint",
     "start": "remix-serve ./build/index.js",
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@remix-sse/client": "*",
+    "@remix-sse/server": "*",
     "@remix-run/css-bundle": "^2.3.0",
     "@remix-run/node": "^2.3.0",
     "@remix-run/react": "^2.3.0",

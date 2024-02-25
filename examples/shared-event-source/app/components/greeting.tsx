@@ -1,4 +1,4 @@
-import { useSubscribe } from 'remix-sse/dist/client/index.js';
+import { useSubscribe } from '@remix-sse/client';
 
 export function Greeting() {
   const greeting = useSubscribe('/shared', 'greeting');

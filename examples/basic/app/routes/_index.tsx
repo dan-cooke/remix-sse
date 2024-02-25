@@ -1,9 +1,8 @@
 import type { MetaFunction } from '@remix-run/node';
 import {
-
   useEventSource,
   useSubscribe
-} from 'remix-sse/client';
+} from '@remix-sse/client';
 
 export const meta: MetaFunction = () => {
   return [

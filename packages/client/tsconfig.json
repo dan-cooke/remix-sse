@@ -6,7 +6,7 @@
     "declaration": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "target": "es2019",
+    "target": "ES2022",
     "module": "CommonJS",
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
     "skipLibCheck": true,

@@ -1,6 +1,6 @@
 import { LoaderFunction } from '@remix-run/node';
 
-import { EventStream } from 'remix-sse';
+import { EventStream } from '@remix-sse/server';
 
 export const loader: LoaderFunction = ({ request }) => {
   return new EventStream(request, (send) => {
