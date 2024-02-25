@@ -5,6 +5,9 @@
       "outputs": ["dist/**"],
       "cache": false
     },
+    "typecheck": {
+      "cache": false
+    },
     "lint": {},
     "test": {},
     "dev": {}
