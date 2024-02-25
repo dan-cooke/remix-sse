@@ -1,5 +1,11 @@
 # @remix-sse/server
 
+## 1.0.1
+
+### Patch Changes
+
+- c5eb797: Allow the callback passed to EventStream to be async
+
 ## 1.0.0
 
 ### Major Changes
