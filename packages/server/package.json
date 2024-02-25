@@ -1,0 +1,35 @@
+{
+  "name": "@remix-sse/server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "url": "https://github.com/dan-cooke/remix-sse"
+  },
+  "files": [
+    "dist/**",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "dev": "tsc -w",
+    "lint": "eslint src/*.ts",
+    "test": "echo \"todo\""
+  },
+  "author": "Daniel Cooke <danielcooke1996@gmail.com>",
+  "license": "See License in LICENSE.md",
+  "peerDependencies": {
+    "@remix-run/node": "^2.x",
+    "@remix-run/react": "^2.x",
+    "@remix-run/serve": "^2.x",
+    "react": "*",
+    "react-dom": "*",
+    "regenerator-runtime": "*"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
+}
