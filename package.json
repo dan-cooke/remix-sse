@@ -1,13 +1,12 @@
 {
   "name": "@remix-sse",
-  "private": true,
   "version": "1.0.0",
   "description": "",
   "repository": {
     "url": "https://github.com/dan-cooke/remix-sse"
   },
   "scripts": {
-    "publish": "turbo build && npx changeset publish"
+    "release": "turbo build && npx changeset publish",
     "build": "turbo build",
     "dev": "tsc -w",
     "lint": "turbo lint",
