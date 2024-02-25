@@ -1,7 +1,7 @@
-import { useSubscribe } from '@remix-sse/client';
+import { useEventStream, useSubscribe } from '@remix-sse/client';
 
 export function Question() {
-  const question = useSubscribe('/shared');
+  const question = useEventStream('/shared', { eventKey: 'question' });
   return (
     <div>
       <h1>Question:</h1>

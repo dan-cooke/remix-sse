@@ -1,30 +1,26 @@
 import { useEffect, useState } from 'react';
 import { addNewEvent } from './addNewEvent';
-import { useRemixSseContext } from './RemixSseProvider';
 import type { DeserializeFn, EventOptions, UseSubscribeReturn } from './types';
 
 export function useSubscribe<
   TReturnLatest extends boolean,
-  TDeserialize extends DeserializeFn | undefined
+  TDeserialize extends DeserializeFn | never
 >(
-  url: string,
+  eventSource: EventSource | undefined,
   options: EventOptions<TReturnLatest, TDeserialize> = {
     maxEventRetention: 50,
     eventKey: 'message',
   }
 ): UseSubscribeReturn<TReturnLatest, TDeserialize> {
-  const { eventSources } = useRemixSseContext();
   const { deserialize, maxEventRetention, returnLatestOnly, eventKey } = options;
   const [data, setData] =
     useState<UseSubscribeReturn<TReturnLatest, TDeserialize>>(null);
 
   useEffect(() => {
-    const eventSource = eventSources[url];
 
     if (!eventSource) return;
 
     function handler(event: MessageEvent) {
-
       setData((previous) => {
         const newEventData = deserialize
           ? deserialize?.(event.data)
@@ -60,7 +56,7 @@ export function useSubscribe<
     return () => {
       removeListener();
     };
-  }, [url, eventKey, options, eventSources, deserialize, maxEventRetention, returnLatestOnly]);
+  }, [eventKey, options, deserialize, maxEventRetention, returnLatestOnly, eventSource]);
 
   return data as any;
 }

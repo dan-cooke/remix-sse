@@ -1,5 +1,4 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
-import { RemixSseProvider } from '@remix-sse/client'
 import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
@@ -24,9 +23,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <RemixSseProvider>
         <Outlet />
-        </RemixSseProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

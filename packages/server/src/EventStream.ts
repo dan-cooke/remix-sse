@@ -6,7 +6,7 @@ export class EventStream extends Response {
       start(controller) {
         const encoder = new TextEncoder();
         const send: SendFunction = (data, options) => {
-          controller.enqueue(encoder.encode(`event: ${options.eventKey ?? 'message'}\n`));
+          controller.enqueue(encoder.encode(`event: ${options?.eventKey ?? 'message'}\n`));
           controller.enqueue(encoder.encode(`data: ${data}\n\n`));
         };
         const cleanup = init(send);

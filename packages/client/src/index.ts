@@ -1,3 +1,2 @@
 export * from './useSubscribe'
-export * from './useEventSource'
-export * from './RemixSseProvider'
+export * from './useEventStream'

@@ -16,7 +16,7 @@
     "build": "tsc",
     "prepare": "npm run build",
     "dev": "tsc -w",
-    "lint": "eslint src/*.{ts,tsx}",
+    "lint": "eslint src/*.ts",
     "test": "vitest run"
   },
   "author": "Daniel Cooke <danielcooke1996@gmail.com>",

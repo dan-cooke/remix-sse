@@ -1,9 +1,8 @@
 import type { MetaFunction } from '@remix-run/node';
 import {
-  useEventSource,
-  useSubscribe
+  useEventStream,
 } from '@remix-sse/client';
-import { Holding } from './types';
+import type { Holding } from './types';
 
 export const meta: MetaFunction = () => {
   return [
@@ -13,21 +12,17 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  // Setup event source
-  useEventSource('/deserialize_example');
-
-  // subscribe to relevant events
 
   // Deserialize values as you wish
   // type = number
-  const assetValue = useSubscribe('/deserialize_example', {
+  const assetValue = useEventStream('/deserialize_example', {
     eventKey: 'assetValue',
     deserialize: (raw) => Number(raw),
     returnLatestOnly: true,
   });
 
   // type: Holding[]
-  const holdings = useSubscribe('/deserialize_example', {
+  const holdings = useEventStream('/deserialize_example', {
     eventKey: 'holdingsArray',
     deserialize: (raw) => JSON.parse(raw) as Holding[],
     returnLatestOnly: true,

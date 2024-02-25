@@ -1,5 +1,5 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
-import { RemixSseContext, useSubscribe } from "../";
+import { useSubscribe } from "../";
 
 describe('useSubscribe', () => {
 
@@ -28,18 +28,8 @@ describe('useSubscribe', () => {
           dispatchEvent: vi.fn()
         }
       };
-      const setEventSources = vi.fn().mockImplementation((setterFn) => {
-        eventSources = setterFn(eventSources);
-      })
 
-      const { result } = renderHook(() => useSubscribe('/test'), {
-        wrapper: ({ children }) => (
-          <RemixSseContext.Provider
-            value={{ setEventSources, eventSources }}>
-            {children}
-          </RemixSseContext.Provider>
-        ),
-      });
+      const { result } = renderHook(() => useSubscribe(eventSources['/test']));
 
 
       act(() => {
@@ -82,18 +72,8 @@ describe('useSubscribe', () => {
           dispatchEvent: vi.fn()
         }
       };
-      const setEventSources = vi.fn().mockImplementation((setterFn) => {
-        eventSources = setterFn(eventSources);
-      })
 
-      const { result } = renderHook(() => useSubscribe('/test', { returnLatestOnly: true }), {
-        wrapper: ({ children }) => (
-          <RemixSseContext.Provider
-            value={{ setEventSources, eventSources }}>
-            {children}
-          </RemixSseContext.Provider>
-        ),
-      });
+      const { result } = renderHook(() => useSubscribe(eventSources['/test'], { returnLatestOnly: true }));
 
       act(() => {
 

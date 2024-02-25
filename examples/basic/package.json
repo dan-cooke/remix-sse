@@ -1,5 +1,5 @@
 {
-  "name": "basic-v2",
+  "name": "basic",
   "private": true,
   "sideEffects": false,
   "type": "module",
