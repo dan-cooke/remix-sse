@@ -1,5 +1,5 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
-import { RemixSseContext, useSubscribe } from "../src";
+import { RemixSseContext, useSubscribe } from "../";
 
 describe('useSubscribe', () => {
 

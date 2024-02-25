@@ -1,5 +1,5 @@
-import { RemixSseContext, useEventSource } from '../src';
 import { renderHook, waitFor } from '@testing-library/react';
+import { RemixSseContext, useEventSource } from '../';
 
 describe('useEventSource', () => {
   it('should call setEventSource with the given url', async () => {

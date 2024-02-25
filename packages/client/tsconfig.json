@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "rootDir": "src",
     "sourceMap": true,
     "declaration": true,
     "esModuleInterop": true,
@@ -14,6 +15,6 @@
     "jsx": "react-jsx",
     "outDir": "dist"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "tests/**/*.ts", "tests/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "tmp", "examples"]
 }
