@@ -7,19 +7,20 @@ export const loader: LoaderFunction = ({ request }) => {
     let gIndex = 0;
     let g = setInterval(() => {
       gIndex += 1;
-      send('assetValue', (Math.random() * gIndex * 1000).toString());
+      send((Math.random() * gIndex * 1000).toString(), { eventKey: 'assetValue' });
     }, 1000);
 
     let q = setInterval(() => {
       send(
-        'holdingsArray',
         JSON.stringify([
           { stock: 'AAPL', latestPrice: Math.random() * 100 },
           {
             stock: 'TSLA',
             latestPrice: Math.random() * 100,
           },
-        ])
+        ]), {
+        eventKey: 'holdingsArray'
+      }
       );
     }, 500);
 

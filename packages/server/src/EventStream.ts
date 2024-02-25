@@ -1,12 +1,12 @@
-import type { InitFunction } from './types';
+import type { InitFunction, SendFunction } from './types';
 
 export class EventStream extends Response {
   constructor(request: Request, init: InitFunction) {
     const stream = new ReadableStream({
       start(controller) {
         const encoder = new TextEncoder();
-        const send = (event: string, data: string) => {
-          controller.enqueue(encoder.encode(`event: ${event}\n`));
+        const send: SendFunction = (data, options) => {
+          controller.enqueue(encoder.encode(`event: ${options.eventKey ?? 'message'}\n`));
           controller.enqueue(encoder.encode(`data: ${data}\n\n`));
         };
         const cleanup = init(send);

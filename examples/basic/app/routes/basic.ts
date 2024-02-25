@@ -7,7 +7,7 @@ export const loader: LoaderFunction = ({ request }) => {
     let gIndex = 0;
     let g = setInterval(() => {
       gIndex += 1;
-      send('message', JSON.stringify({ hello: 'world', index: gIndex }));
+      send(JSON.stringify({ hello: 'world', index: gIndex }));
     }, 1000);
 
 
