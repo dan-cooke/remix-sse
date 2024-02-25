@@ -7,6 +7,7 @@
     "url": "https://github.com/dan-cooke/remix-sse"
   },
   "scripts": {
+    "publish": "turbo build && npx changeset publish"
     "build": "turbo build",
     "dev": "tsc -w",
     "lint": "turbo lint",
