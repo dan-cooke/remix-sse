@@ -4,6 +4,7 @@
     "rootDir": "src",
     "sourceMap": true,
     "declaration": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
     "target": "ES2022",
@@ -16,5 +17,5 @@
     "outDir": "dist"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "tmp", "examples"]
+  "exclude": ["node_modules", "tmp", "examples", "dist"]
 }
