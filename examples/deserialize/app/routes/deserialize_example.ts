@@ -3,7 +3,7 @@ import { LoaderFunction } from '@remix-run/node';
 import { EventStream } from '@remix-sse/server';
 
 export const loader: LoaderFunction = ({ request }) => {
-  return new EventStream(request, (send) => {
+  return new EventStream(request, async (send) => {
     let gIndex = 0;
     let g = setInterval(() => {
       gIndex += 1;

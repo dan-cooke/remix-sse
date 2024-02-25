@@ -3,4 +3,4 @@ export type SendFunctionOptions = {
 }
 export type SendFunction = (data: string, options?: SendFunctionOptions) => void;
 export type CleanupFunction = () => void;
-export type InitFunction = (send: SendFunction) => CleanupFunction;
+export type InitFunction = (send: SendFunction) => Promise<CleanupFunction> | CleanupFunction;

@@ -3,13 +3,13 @@ import type { InitFunction, SendFunction } from './types';
 export class EventStream extends Response {
   constructor(request: Request, init: InitFunction) {
     const stream = new ReadableStream({
-      start(controller) {
+      async start(controller) {
         const encoder = new TextEncoder();
         const send: SendFunction = (data, options) => {
           controller.enqueue(encoder.encode(`event: ${options?.channel ?? 'message'}\n`));
           controller.enqueue(encoder.encode(`data: ${data}\n\n`));
         };
-        const cleanup = init(send);
+        const cleanup = await init(send);
 
         let closed = false;
         const close = () => {
