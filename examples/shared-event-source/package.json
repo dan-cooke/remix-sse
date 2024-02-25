@@ -1,5 +1,5 @@
 {
-  "name": "shared-event-source-v2",
+  "name": "shared-event-source",
   "private": true,
   "sideEffects": false,
   "type": "module",

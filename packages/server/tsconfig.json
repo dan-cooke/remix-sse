@@ -15,5 +15,5 @@
     "outDir": "dist"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "tmp", "examples"]
+  "exclude": ["node_modules", "tmp", "examples", "dist"]
 }

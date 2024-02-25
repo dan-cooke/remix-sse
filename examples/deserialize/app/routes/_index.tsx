@@ -20,13 +20,15 @@ export default function Index() {
 
   // Deserialize values as you wish
   // type = number
-  const assetValue = useSubscribe('/deserialize_example', 'assetValue', {
+  const assetValue = useSubscribe('/deserialize_example', {
+    eventKey: 'assetValue',
     deserialize: (raw) => Number(raw),
     returnLatestOnly: true,
   });
 
   // type: Holding[]
-  const holdings = useSubscribe('/deserialize_example', 'holdingsArray', {
+  const holdings = useSubscribe('/deserialize_example', {
+    eventKey: 'holdingsArray',
     deserialize: (raw) => JSON.parse(raw) as Holding[],
     returnLatestOnly: true,
   });

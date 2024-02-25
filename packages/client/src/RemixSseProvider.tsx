@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 export const RemixSseContext = createContext<{
   eventSources: Record<string, EventSource>;
@@ -18,7 +17,7 @@ export function RemixSseProvider({ children }: React.PropsWithChildren) {
 }
 
 export function useRemixSseContext() {
-  const context = React.useContext(RemixSseContext);
+  const context = useContext(RemixSseContext);
 
   if (!context) throw Error('No RemixSseProvider found');
 

@@ -17,7 +17,7 @@
     "prepare": "npm run build",
     "dev": "tsc -w",
     "lint": "eslint src/*.{ts,tsx}",
-    "test": "echo \"todo\""
+    "test": "vitest run"
   },
   "author": "Daniel Cooke <danielcooke1996@gmail.com>",
   "license": "See License in LICENSE.md",
@@ -31,5 +31,8 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.2"
   }
 }

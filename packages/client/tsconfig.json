@@ -4,10 +4,12 @@
     "rootDir": "src",
     "sourceMap": true,
     "declaration": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
     "target": "ES2022",
     "module": "CommonJS",
+    "types": ["vitest/globals"],
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
     "skipLibCheck": true,
     "baseUrl": ".",
@@ -15,5 +17,5 @@
     "outDir": "dist"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "tmp", "examples"]
+  "exclude": ["node_modules", "tmp", "examples", "dist"]
 }

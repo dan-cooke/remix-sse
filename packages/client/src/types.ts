@@ -2,9 +2,10 @@ export type DeserializeFn = (raw: string) => any;
 
 export type EventOptions<
   TReturnLatest extends boolean,
-  TDeserialized extends DeserializeFn
+  TDeserialized extends DeserializeFn | never
 > = {
   maxEventRetention?: number;
+  eventKey?: string;
   returnLatestOnly?: TReturnLatest;
   deserialize?: TDeserialized;
 };
@@ -19,5 +20,5 @@ export type Deserialized<TDeserialized extends DeserializeFn> =
 
 export type UseSubscribeReturn<
   TReturnLatest extends boolean,
-  TDeserialized extends DeserializeFn | undefined
+  TDeserialized extends DeserializeFn | never
 > = LatestOrAllEvents<Deserialized<TDeserialized>, TReturnLatest> | null;

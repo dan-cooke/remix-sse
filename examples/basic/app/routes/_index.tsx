@@ -15,10 +15,12 @@ export default function Index() {
   // This can be called from anywhere in your react tree- even a parent component
   useEventSource('/basic');
 
-  const greetings = useSubscribe('/basic', 'greeting');
-  const questions = useSubscribe('/basic', 'question');
+  // By default, useSubscribe will return an array of all messages sent to the event source with key "message"
+  const greetings = useSubscribe('/basic');
 
-  const mostRecentGreeting = useSubscribe('/basic', 'greeting', {
+  // You could also use the returnLatestOnly option to only return the most recent message
+  const mostRecentGreeting = useSubscribe('/basic', {
+    eventKey: 'message', // default is 'message'
     returnLatestOnly: true,
   });
 
@@ -28,9 +30,6 @@ export default function Index() {
 
       <h2>Greetings:</h2>
       {JSON.stringify(greetings)}
-
-      <h2>Questions:</h2>
-      {JSON.stringify(questions)}
 
       <h2>Most Recent Greeting:</h2>
       {JSON.stringify(mostRecentGreeting)}

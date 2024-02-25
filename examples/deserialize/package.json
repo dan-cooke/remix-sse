@@ -1,5 +1,5 @@
 {
-  "name": "deserialize-v2",
+  "name": "deserialize",
   "private": true,
   "sideEffects": false,
   "type": "module",
