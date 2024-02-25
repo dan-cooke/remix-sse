@@ -5,6 +5,7 @@ export type EventOptions<
   TDeserialized extends DeserializeFn
 > = {
   maxEventRetention?: number;
+  eventKey?: string;
   returnLatestOnly?: TReturnLatest;
   deserialize?: TDeserialized;
 };

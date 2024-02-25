@@ -8,13 +8,13 @@ export function useSubscribe<
   TDeserialize extends DeserializeFn | undefined
 >(
   url: string,
-  eventKey: string,
   options: EventOptions<TReturnLatest, TDeserialize> = {
     maxEventRetention: 50,
+    eventKey: 'message',
   }
 ): UseSubscribeReturn<TReturnLatest, TDeserialize> {
   const { eventSources } = useRemixSseContext();
-  const { deserialize, maxEventRetention, returnLatestOnly } = options;
+  const { deserialize, maxEventRetention, returnLatestOnly, eventKey } = options;
   const [data, setData] =
     useState<UseSubscribeReturn<TReturnLatest, TDeserialize>>(null);
 
@@ -24,6 +24,7 @@ export function useSubscribe<
     if (!eventSource) return;
 
     function handler(event: MessageEvent) {
+
       setData((previous) => {
         const newEventData = deserialize
           ? deserialize?.(event.data)
@@ -46,11 +47,11 @@ export function useSubscribe<
     }
 
     const removeListener = () => {
-      eventSource.removeEventListener(eventKey, handler);
+      eventSource.removeEventListener(eventKey ?? "message", handler);
     };
 
     const addListener = () => {
-      eventSource.addEventListener(eventKey, handler);
+      eventSource.addEventListener(eventKey ?? "message", handler);
     };
 
     removeListener();
