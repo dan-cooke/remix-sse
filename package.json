@@ -1,78 +1,49 @@
 {
-  "name": "remix-sse",
-  "version": "5.0.0",
+  "name": "@remix-sse",
+  "private": true,
+  "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "repository": {
     "url": "https://github.com/dan-cooke/remix-sse"
   },
-  "files": [
-    "dist/**",
-    "package.json",
-    "README.md"
-  ],
   "scripts": {
-    "build": "tsc",
+    "build": "turbo build",
     "dev": "tsc -w",
-    "lint": "eslint src/**/*.{ts,tsx}",
-    "test": "echo \"todo\""
+    "lint": "turbo lint",
+    "test": "turbo test"
   },
   "author": "Daniel Cooke <danielcooke1996@gmail.com>",
   "license": "See License in LICENSE.md",
-  "peerDependencies": {
-    "@remix-run/node": "^2.x",
-    "@remix-run/react": "^2.x",
-    "@remix-run/serve": "^2.x",
-    "react": "*",
-    "react-dom": "*",
-    "regenerator-runtime": "*"
-  },
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
+
     "@remix-run/dev": "^2.3.0",
     "@remix-run/eslint-config": "^2.3.0",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/npm": "^9.0.1",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "eslint": "^8.38.0",
+    "typescript": "^5.1.6",
     "@testing-library/react": "13.4.0",
     "@types/jest": "28.1.1",
     "@types/node": "16.11.7",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@types/ws": "^8.5.3",
-    "@typescript-eslint/eslint-plugin": "^5.44.0",
-    "@typescript-eslint/parser": "^5.44.0",
     "babel-jest": "28.1.1",
     "cypress": "^13.6.0",
-    "eslint": "^8.28.0",
-    "eslint-config-prettier": "8.1.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "6.6.1",
-    "eslint-plugin-n": "^15.5.1",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.31.11",
-    "eslint-plugin-react-hooks": "4.6.0",
     "husky": "^8.0.0",
     "jest": "28.1.1",
-    "jest-environment-jsdom": "28.1.1",
     "prettier": "^2.6.2",
-    "react-test-renderer": "18.2.0",
-    "semantic-release": "^19.0.5",
-    "semver": "^7.3.8",
-    "socket.io-client": "^4.5.3",
     "ts-jest": "28.0.5",
-    "ts-node": "10.9.1",
-    "typescript": "^5.1.0",
-    "wait-on": "^7.2.0",
-    "ws": "^7.5.9"
+    "wait-on": "^7.2.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "workspaces": [
     "examples/**/*",
-    "."
+    "packages/**/*"
   ]
 }

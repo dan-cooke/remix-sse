@@ -36,7 +36,7 @@ See [basic example](/examples/basic/README.md) for more detail.
 > Note: This **MUST** be a resource route, you cannot return a component from this route.
 
 ```.ts
-import { EventStream } from 'remix-sse'
+import { EventStream } from '@remix-sse/server'
 export const loader: LoaderFunction = ({ request }) => {
 
   // Return the EventStream from your route loader
