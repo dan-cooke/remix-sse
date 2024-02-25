@@ -20,7 +20,7 @@ Server Side Events (SSE) for Remix, made easy.
 # Installation
 
 ```sh
-npm i remix-sse
+npm i @remix-sse/client @remix-sse/server
 ```
 
 # Documentation
@@ -31,6 +31,8 @@ See [examples](/examples/) directory.
 
 See [basic example](/examples/basic/README.md) for more detail.
 
+
+### Server
 1. Setup your event source route, here it is called `/routes/emitter.tsx` for simplicity
 
 > Note: This **MUST** be a resource route, you cannot return a component from this route.
@@ -49,7 +51,12 @@ export const loader: LoaderFunction = ({ request }) => {
 
     const interval = setInterval(() => {
       // You can send events to the client via the `send` function
-      send('greeting', JSON.stringify({ hello: 'world'}))
+      send(JSON.stringify({ hello: 'world'}))
+
+      // if you to send different events on multiple channels you can
+      // specify an eventKey in the options
+      send(JSON.stringify({ hello: 'world'}), { eventKey: 'channelExample'})
+
     }, 1000)
 
 
@@ -61,14 +68,13 @@ export const loader: LoaderFunction = ({ request }) => {
 };
 ```
 
-> Note: the first argument passed to the `send` function is the `EventKey`, this can be
-> anything you want - but you will need to reference it again via `useSubscribe`.
+### Client
 
-2. Wrap your `root.tsx` with `RemixSseProvider`.
+1. Wrap your `root.tsx` with `RemixSseProvider`.
 
 ```.ts
 
-import { RemixSseProvider} from 'remix-sse/dist/client'
+import { RemixSseProvider} from '@remix-sse/client'
 
 
 <RemixSseProvider>
@@ -76,32 +82,30 @@ import { RemixSseProvider} from 'remix-sse/dist/client'
 </RemixSseProvider>
 ```
 
-> Note: v4 has temporarily broken the flat file structure we used to have ie. `remix-sse/dist/client` instead of `remix-sse/client`
-
-3. Call the `useEventSource` to setup an `EventSource` in your browser
+2. Call the `useEventSource` to setup an `EventSource` in your browser
 
 ```.ts
-import { useEventSource } from 'remix-sse/dist/client'
+import { useEventSource } from '@remix-sse/client'
 useEventSource('/emitter');
 
 ```
 
-4. Call `useSubscribe` from anywhere in your tree to begin listening to events emitted from the event source
+3. Call `useSubscribe` from anywhere in your tree to begin listening to events emitted from the event source
 
 ```.ts
 // This value is a react state object, and will change everytime
 // an event is emitted
 
 // By default this is a string[]
-const greeting = useSubscribe('/emitter', 'greeting')
+const greeting = useSubscribe('/emitter')
 
 // But you can return only the latest event as follows
-const latestGreeting = useSubscribe('/emitter', 'greeting', {
+const latestGreeting = useSubscribe('/emitter', {
   returnLatestOnly: true
 })
 
 // Or you can type the return by deserializing the event data
-const typedGreeting = useSubscribe('/emitter', 'greeting', {
+const typedGreeting = useSubscribe('/emitter', {
   returnLatestOnly: true,
   deserialize: (raw) => JSON.parse(raw) as Greeting
 })
@@ -122,6 +126,7 @@ See [deserialize](/examples/deserialize/) for more details.
 
 | Option              | Description                                                                               | Default |
 | ------------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `eventKey`  | The name of the event, use this if you wish to send multiple types of event from the same emitter |'message'|
 | `maxEventRetention` | The maximum number of events that will be kept.                                           | 50      |
 | `returnLatestOnly`  | Returns only the most recently emitted event - ie. returns `TEvent` instead of `TEvent[]` | `false` |
 
