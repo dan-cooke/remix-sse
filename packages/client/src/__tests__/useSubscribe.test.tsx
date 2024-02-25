@@ -1,16 +1,16 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
-import { RemixSseContext, useSubscribe } from "../";
+import { useSubscribe } from "../";
 
 describe('useSubscribe', () => {
 
   describe('when no options are passed', () => {
     it('should return an array of all messages sent to the event source with key "message"', async () => {
       let sendEvent;
-      let eventKey;
+      let channel;
       let eventSources = {
         '/test': {
           addEventListener: vi.fn().mockImplementation((key, fn) => {
-            eventKey = key;
+            channel = key;
             sendEvent = fn;
           }),
           removeEventListener: vi.fn(),
@@ -28,18 +28,8 @@ describe('useSubscribe', () => {
           dispatchEvent: vi.fn()
         }
       };
-      const setEventSources = vi.fn().mockImplementation((setterFn) => {
-        eventSources = setterFn(eventSources);
-      })
 
-      const { result } = renderHook(() => useSubscribe('/test'), {
-        wrapper: ({ children }) => (
-          <RemixSseContext.Provider
-            value={{ setEventSources, eventSources }}>
-            {children}
-          </RemixSseContext.Provider>
-        ),
-      });
+      const { result } = renderHook(() => useSubscribe(eventSources['/test']));
 
 
       act(() => {
@@ -48,7 +38,7 @@ describe('useSubscribe', () => {
         sendEvent({ data: 'another' })
       })
 
-      expect(eventKey).toEqual('message');
+      expect(channel).toEqual('message');
 
       await waitFor(() => {
         expect(result.current).toEqual(['something', 'another']);
@@ -60,11 +50,11 @@ describe('useSubscribe', () => {
   describe('when returnLatestOnly is true', () => {
     it('should return the latest message sent to the event source', async () => {
       let sendEvent;
-      let eventKey;
+      let channel;
       let eventSources = {
         '/test': {
           addEventListener: vi.fn().mockImplementation((key, fn) => {
-            eventKey = key;
+            channel = key;
             sendEvent = fn;
           }),
           removeEventListener: vi.fn(),
@@ -82,18 +72,8 @@ describe('useSubscribe', () => {
           dispatchEvent: vi.fn()
         }
       };
-      const setEventSources = vi.fn().mockImplementation((setterFn) => {
-        eventSources = setterFn(eventSources);
-      })
 
-      const { result } = renderHook(() => useSubscribe('/test', { returnLatestOnly: true }), {
-        wrapper: ({ children }) => (
-          <RemixSseContext.Provider
-            value={{ setEventSources, eventSources }}>
-            {children}
-          </RemixSseContext.Provider>
-        ),
-      });
+      const { result } = renderHook(() => useSubscribe(eventSources['/test'], { returnLatestOnly: true }));
 
       act(() => {
 
@@ -101,7 +81,7 @@ describe('useSubscribe', () => {
         sendEvent({ data: 'another' })
       })
 
-      expect(eventKey).toEqual('message');
+      expect(channel).toEqual('message');
 
       await waitFor(() => {
         expect(result.current).toEqual('another');

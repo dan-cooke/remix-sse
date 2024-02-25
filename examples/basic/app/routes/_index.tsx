@@ -1,7 +1,6 @@
 import type { MetaFunction } from '@remix-run/node';
 import {
-  useEventSource,
-  useSubscribe
+  useEventStream,
 } from '@remix-sse/client';
 
 export const meta: MetaFunction = () => {
@@ -12,15 +11,12 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  // This can be called from anywhere in your react tree- even a parent component
-  useEventSource('/basic');
-
   // By default, useSubscribe will return an array of all messages sent to the event source with key "message"
-  const greetings = useSubscribe('/basic');
+  const greetings = useEventStream('/basic');
 
   // You could also use the returnLatestOnly option to only return the most recent message
-  const mostRecentGreeting = useSubscribe('/basic', {
-    eventKey: 'message', // default is 'message'
+  const mostRecentGreeting = useEventStream('/basic', {
+    channel: 'message', // default is 'message'
     returnLatestOnly: true,
   });
 

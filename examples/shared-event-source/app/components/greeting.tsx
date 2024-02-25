@@ -1,7 +1,7 @@
-import { useSubscribe } from '@remix-sse/client';
+import { useEventStream } from '@remix-sse/client';
 
 export function Greeting() {
-  const greeting = useSubscribe('/shared');
+  const greeting = useEventStream('/shared', { channel: 'greeting' });
   return (
     <div>
       <h1>Greeting is:</h1>

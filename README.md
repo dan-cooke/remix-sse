@@ -32,7 +32,7 @@ See [examples](/examples/) directory.
 See [basic example](/examples/basic/README.md) for more detail.
 
 
-### Server
+## Server
 1. Setup your event source route, here it is called `/routes/emitter.tsx` for simplicity
 
 > Note: This **MUST** be a resource route, you cannot return a component from this route.
@@ -68,49 +68,90 @@ export const loader: LoaderFunction = ({ request }) => {
 };
 ```
 
-### Client
+## Client
 
-1. Wrap your `root.tsx` with `RemixSseProvider`.
-
-```.ts
-
-import { RemixSseProvider} from '@remix-sse/client'
-
-
-<RemixSseProvider>
-  <Outlet />
-</RemixSseProvider>
-```
-
-2. Call the `useEventSource` to setup an `EventSource` in your browser
-
-```.ts
-import { useEventSource } from '@remix-sse/client'
-useEventSource('/emitter');
-
-```
-
-3. Call `useSubscribe` from anywhere in your tree to begin listening to events emitted from the event source
+Call `useEventStream` from anywhere in your tree to begin listening to events emitted from the event source
 
 ```.ts
 // This value is a react state object, and will change everytime
 // an event is emitted
 
 // By default this is a string[]
-const greeting = useSubscribe('/emitter')
+const greeting = useEventStream('/emitter')
 
 // But you can return only the latest event as follows
-const latestGreeting = useSubscribe('/emitter', {
+const latestGreeting = useEventStream('/emitter', {
   returnLatestOnly: true
 })
 
 // Or you can type the return by deserializing the event data
-const typedGreeting = useSubscribe('/emitter', {
+const typedGreeting = useEventStream('/emitter', {
   returnLatestOnly: true,
   deserialize: (raw) => JSON.parse(raw) as Greeting
 })
 
 ```
+
+`useEventStream` will create an EventSource for you. Its worth noting that it will also ensure only one EventSource is created for each URL.
+
+
+
+### Supply your own `EventSource`
+If you want to manage the EventSources yourself you can use the lower-level `useSubscribe` hook which takes an `EventSource` and behaves the same as `useEventStream`
+
+```.tsx
+
+const source = new EventSource('/my-url')
+
+const data = useSubscribe(source)
+
+```
+
+This is largely uneccessary
+
+## Channels 
+By default all messages are sent on the `message` channel. You can send events on different channels by specifying the `channel` when using the `send` function and in `useEventStream` / `useSubscribe`.
+
+### Sending on multiple channels
+```
+export const loader: LoaderFunction = ({ request }) => {
+  return new EventStream(request, (send) => {
+    setInterval(() => {
+      send((Math.random() * gIndex * 1000).toString(), { channel: 'assetValue' });
+    }, 1000);
+
+    setInterval(() => {
+      send(
+        JSON.stringify([
+          { stock: 'AAPL', latestPrice: Math.random() * 100 },
+          {
+            stock: 'TSLA',
+            latestPrice: Math.random() * 100,
+          },
+        ]), {
+        channel: 'holdings'
+      }
+      );
+    }, 500);
+  });
+};
+```
+
+
+### Listening on multiple channels
+```.tsx
+  const assetValue = useEventStream('/emitter', {
+    channel: 'assetValue',
+    returnLatestOnly: true,
+  });
+
+  const holdings = useEventStream('/emitter', {
+    channel: 'holdings',
+  });
+```
+
+See [ deserialize ](https://github.com/dan-cooke/remix-sse/tree/main/examples/deserialize) example for more details
+
 
 # Deserialize
 

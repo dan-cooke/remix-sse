@@ -1,30 +1,26 @@
 import { useEffect, useState } from 'react';
 import { addNewEvent } from './addNewEvent';
-import { useRemixSseContext } from './RemixSseProvider';
 import type { DeserializeFn, EventOptions, UseSubscribeReturn } from './types';
 
 export function useSubscribe<
   TReturnLatest extends boolean,
-  TDeserialize extends DeserializeFn | undefined
+  TDeserialize extends DeserializeFn | never
 >(
-  url: string,
+  eventSource: EventSource | undefined,
   options: EventOptions<TReturnLatest, TDeserialize> = {
     maxEventRetention: 50,
-    eventKey: 'message',
+    channel: 'message',
   }
 ): UseSubscribeReturn<TReturnLatest, TDeserialize> {
-  const { eventSources } = useRemixSseContext();
-  const { deserialize, maxEventRetention, returnLatestOnly, eventKey } = options;
+  const { deserialize, maxEventRetention, returnLatestOnly, channel } = options;
   const [data, setData] =
     useState<UseSubscribeReturn<TReturnLatest, TDeserialize>>(null);
 
   useEffect(() => {
-    const eventSource = eventSources[url];
 
     if (!eventSource) return;
 
     function handler(event: MessageEvent) {
-
       setData((previous) => {
         const newEventData = deserialize
           ? deserialize?.(event.data)
@@ -47,11 +43,11 @@ export function useSubscribe<
     }
 
     const removeListener = () => {
-      eventSource.removeEventListener(eventKey ?? "message", handler);
+      eventSource.removeEventListener(channel ?? "message", handler);
     };
 
     const addListener = () => {
-      eventSource.addEventListener(eventKey ?? "message", handler);
+      eventSource.addEventListener(channel ?? "message", handler);
     };
 
     removeListener();
@@ -60,7 +56,7 @@ export function useSubscribe<
     return () => {
       removeListener();
     };
-  }, [url, eventKey, options, eventSources, deserialize, maxEventRetention, returnLatestOnly]);
+  }, [channel, options, deserialize, maxEventRetention, returnLatestOnly, eventSource]);
 
   return data as any;
 }

@@ -11,11 +11,10 @@
     "module": "CommonJS",
     "types": ["vitest/globals"],
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
-    "skipLibCheck": true,
     "baseUrl": ".",
     "jsx": "react-jsx",
     "outDir": "dist"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "tmp", "examples", "dist"]
 }
