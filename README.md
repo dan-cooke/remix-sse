@@ -12,11 +12,6 @@ Server Side Events (SSE) for Remix, made easy.
 - ✅ 100% typescript
 - ✅ (experimental) Typed deserialization
 
-### Planned
-
-- 👷 Topic support - pass a topic string to `useSubscribe` and only listen to events that match the topic
-- 👷 Emitter type support - ensures the messages you are sending are in a format your hooks are expecting
-
 # Installation
 
 ```sh
@@ -113,7 +108,7 @@ This is largely uneccessary
 By default all messages are sent on the `message` channel. You can send events on different channels by specifying the `channel` when using the `send` function and in `useEventStream` / `useSubscribe`.
 
 ### Sending on multiple channels
-```
+```.ts
 export const loader: LoaderFunction = ({ request }) => {
   return new EventStream(request, (send) => {
     setInterval(() => {
