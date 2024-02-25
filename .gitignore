@@ -1,5 +1,6 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+.turbo
 # compiled output
 dist
 tmp
@@ -41,4 +42,4 @@ Thumbs.db
 # Remix files
 examples/**/build
 examples/**/.cache
-  
+
