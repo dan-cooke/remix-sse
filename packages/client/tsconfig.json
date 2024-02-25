@@ -1,0 +1,19 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": "src",
+    "sourceMap": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "target": "ES2022",
+    "module": "CommonJS",
+    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "jsx": "react-jsx",
+    "outDir": "dist"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "tmp", "examples"]
+}

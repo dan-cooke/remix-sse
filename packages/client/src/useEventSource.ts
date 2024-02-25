@@ -11,5 +11,5 @@ export const useEventSource = (url: string) => {
       createdRef.current = eventSource;
       setEventSources((prev) => ({ ...prev, [url]: eventSource }));
     }
-  }, [url]);
+  }, [url, eventSources, setEventSources]);
 };

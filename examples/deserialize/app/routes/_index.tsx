@@ -2,7 +2,7 @@ import type { MetaFunction } from '@remix-run/node';
 import {
   useEventSource,
   useSubscribe
-} from 'remix-sse/dist/client/index.js';
+} from '@remix-sse/client';
 import { Holding } from './types';
 
 export const meta: MetaFunction = () => {

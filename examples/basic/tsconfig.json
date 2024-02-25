@@ -14,7 +14,6 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"],
-      "remix-sse/*": ["../../dist/*"]
     },
 
     // Remix takes care of building everything in `remix build`.

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { addNewEvent } from './addNewEvent';
 import { useRemixSseContext } from './RemixSseProvider';
-import { DeserializeFn, EventOptions, UseSubscribeReturn } from './types';
+import type { DeserializeFn, EventOptions, UseSubscribeReturn } from './types';
 
 export function useSubscribe<
   TReturnLatest extends boolean,
@@ -59,7 +59,7 @@ export function useSubscribe<
     return () => {
       removeListener();
     };
-  }, [url, eventKey, options, eventSources]);
+  }, [url, eventKey, options, eventSources, deserialize, maxEventRetention, returnLatestOnly]);
 
   return data as any;
 }

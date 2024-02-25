@@ -1,4 +1,4 @@
-import { InitFunction } from './types';
+import type { InitFunction } from './types';
 
 export class EventStream extends Response {
   constructor(request: Request, init: InitFunction) {

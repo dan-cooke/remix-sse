@@ -1,5 +1,5 @@
 import { Outlet } from '@remix-run/react';
-import { useEventSource } from 'remix-sse/dist/client/index.js';
+import { useEventSource } from '@remix-sse/client';
 
 export default function AppLayout() {
   useEventSource('/shared');
